@@ -1,0 +1,9 @@
+annotated_test_imgs/
+training_run_tiling_021725/
+models
+csv_output
+*.jpg
+hard_negs*
+slicing*
+yolo/
+ham*/
