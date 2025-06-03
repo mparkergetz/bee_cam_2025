@@ -7,3 +7,5 @@ hard_negs*
 slicing*
 yolo/
 ham*/
+runs/
+*.csv

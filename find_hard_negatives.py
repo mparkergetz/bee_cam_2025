@@ -8,12 +8,13 @@ import gc
 torch.cuda.empty_cache()
 torch.cuda.ipc_collect()
 
+data_path = 'yolo/datasets/tiled_balance_bg_052025'
 
-data_path = '/home/mpgetz/nas/bee_cam_slicing/tiled_prune_bg_050725'
-
-model_path = 'slicing_model_022325/weights/best.pt'  # GET SLICING MODEL
-input_dirs = [os.path.join(data_path,'train/background'), os.path.join(data_path, 'val/background')]
-output_files = ['train_scores.csv', 'val_scores.csv']
+model_path = 'yolo/bee_cam/training_run_2025-05-20_10-48-52/weights/best.pt'  # USE TILED MODEL
+# input_dirs = [os.path.join(data_path,'train'), os.path.join(data_path, 'val')]
+input_dirs = [os.path.join(data_path,'train')]
+# output_files = ['train_scores.csv', 'val_scores.csv']
+output_files = ['train_scores.csv']
 
 model = YOLO(model_path)
 
@@ -22,6 +23,10 @@ for input_dir, output_csv in zip(input_dirs, output_files):
     results_data = []
 
     for img_path in image_dir.glob('*.[jp][pn]g'):
+        txt_path = img_path.with_suffix('.txt')
+        if txt_path.exists():
+            continue
+    
         results = model(img_path, conf=0.1)
         
         for r in results:
