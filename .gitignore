@@ -9,3 +9,5 @@ yolo/
 ham*/
 runs/
 *.csv
+test_output
+*.txt
